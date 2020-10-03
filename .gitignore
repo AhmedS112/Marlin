@@ -184,4 +184,3 @@ cmake-build-*
 
 #Python
 __pycache__
-*.ini

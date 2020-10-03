@@ -22,7 +22,7 @@
 #pragma once
 
 /**
- * HAL for Teensy 3.2 (MK20DX256)
+ * Description: HAL for Teensy 3.5 and Teensy 3.6
  */
 
 #define CPU_32_BIT
@@ -44,20 +44,23 @@
 //#undef MOTHERBOARD
 //#define MOTHERBOARD BOARD_TEENSY31_32
 
-#define IS_32BIT_TEENSY 1
-#define IS_TEENSY_31_32 1
-#ifndef IS_TEENSY31
+#ifdef __MK20DX256__
+  #define IS_32BIT_TEENSY 1
   #define IS_TEENSY32 1
 #endif
 
-#define _MSERIAL(X) Serial##X
-#define MSERIAL(X) _MSERIAL(X)
-#define Serial0 Serial
+#define NUM_SERIAL 1
 
 #if SERIAL_PORT == -1
   #define MYSERIAL0 SerialUSB
-#elif WITHIN(SERIAL_PORT, 0, 3)
-  #define MYSERIAL0 MSERIAL(SERIAL_PORT)
+#elif SERIAL_PORT == 0
+  #define MYSERIAL0 Serial
+#elif SERIAL_PORT == 1
+  #define MYSERIAL0 Serial1
+#elif SERIAL_PORT == 2
+  #define MYSERIAL0 Serial2
+#elif SERIAL_PORT == 3
+  #define MYSERIAL0 Serial3
 #endif
 
 #define HAL_SERVO_LIB libServo
